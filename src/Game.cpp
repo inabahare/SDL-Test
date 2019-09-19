@@ -5,7 +5,7 @@ Game::~Game() {}
 
 void Game::Init(const char* title, int xPos, int yPos, int height, int width, bool fullScreen) 
 {
-  int flags;
+  int flags = 0;
   if (fullScreen)
     flags = SDL_WINDOW_FULLSCREEN;
 
@@ -25,7 +25,7 @@ void Game::Init(const char* title, int xPos, int yPos, int height, int width, bo
     renderer = SDL_CreateRenderer(window, -1, 0);
 
     if (renderer) {
-      SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
       std::cout << "Renderer created" << std::endl;
     }
     
