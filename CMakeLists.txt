@@ -8,9 +8,10 @@ file(GLOB SRC_DIR
   src/*.cpp
 )
 
-find_package(SDL2 REQUIRED)
-
-include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
+include(FindPkgConfig)
+pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(SDL2IMAGE REQUIRED SDL2_image)
 
 add_executable(SDL2Test ${SRC_DIR})
-target_link_libraries(SDL2Test SDL2::SDL2)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
+target_link_libraries(SDL2Test ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
