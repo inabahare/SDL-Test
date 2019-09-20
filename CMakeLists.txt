@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 project(SDL2Test)
 
-# SET(CMAKE_CXX_COMPILER "/usr/bin/g++")
+add_compile_options("-Wall" "-g")
 
 file(GLOB SRC_DIR
   src/*.h

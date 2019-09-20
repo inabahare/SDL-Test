@@ -53,7 +53,8 @@ void Game::HandleEvents()
 // Update our objects
 void Game::Update() 
 {
-
+  counter++;
+  std::cout << counter << std::endl;
 };
 
 // Display our objects

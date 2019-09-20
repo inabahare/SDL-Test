@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <iostream>
-#include "SDL2/SDL.h";
+#include "SDL2/SDL.h"
 
 
 class Game {
@@ -19,6 +19,7 @@ class Game {
     bool IsRunning();
 
   private:
+    int counter = 0;
     bool isRunning;
     SDL_Window* window;
     SDL_Renderer* renderer;
