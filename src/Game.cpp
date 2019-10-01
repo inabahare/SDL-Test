@@ -1,6 +1,7 @@
 #include "Game.h"
 
 SDL_Texture* player;
+SDL_Rect* srcRectangle, destRectangle;
 
 Game::Game() {}
 Game::~Game() {}
@@ -31,14 +32,14 @@ void Game::Init(const char* title, int xPos, int yPos, int height, int width, bo
       std::cout << "Renderer created" << std::endl;
     }
     
+    SDL_Surface* tmpSurface = IMG_Load("assets/player.png");
+    player = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+    SDL_FreeSurface(tmpSurface);
+
     isRunning = true;
   }
   else
     isRunning = false;
-
-  SDL_Surface* tmpSurface = IMG_Load("assets/player.png");
-  player = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-  SDL_FreeSurface(tmpSurface);
 }
 
 void Game::HandleEvents() 
@@ -61,6 +62,11 @@ void Game::Update()
 {
   counter++;
   std::cout << counter << std::endl;
+
+  destRectangle.h = 32;
+  destRectangle.w = 32;
+
+  destRectangle.x++;
 };
 
 // Display our objects
@@ -68,7 +74,7 @@ void Game::Render()
 {
   SDL_RenderClear(renderer);
   // Render stuff
-  SDL_RenderCopy(renderer, player, NULL, NULL);
+  SDL_RenderCopy(renderer, player, NULL, &destRectangle);
 
   SDL_RenderPresent(renderer);
 };
