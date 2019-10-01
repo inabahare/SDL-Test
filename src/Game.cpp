@@ -1,7 +1,11 @@
 #include "Game.h"
+#include "TextureManager.h"
+#include "GameObject.h"
 
-SDL_Texture* player;
-SDL_Rect* srcRectangle, destRectangle;
+GameObject* player;
+GameObject* player2;
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {}
 Game::~Game() {}
@@ -25,17 +29,14 @@ void Game::Init(const char* title, int xPos, int yPos, int height, int width, bo
     if (window)
       std::cout << "Window created" << std::endl;
 
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    Game::renderer = SDL_CreateRenderer(window, -1, 0);
 
     if (renderer) {
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
       std::cout << "Renderer created" << std::endl;
     }
     
-    SDL_Surface* tmpSurface = IMG_Load("assets/player.png");
-    player = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-    SDL_FreeSurface(tmpSurface);
-
+    player = new GameObject("assets/player.png", Game::renderer, 10, 10);
     isRunning = true;
   }
   else
@@ -62,27 +63,24 @@ void Game::Update()
 {
   counter++;
   std::cout << counter << std::endl;
-
-  destRectangle.h = 32;
-  destRectangle.w = 32;
-
-  destRectangle.x++;
+  player->Update();
 };
 
 // Display our objects
 void Game::Render() 
 {
-  SDL_RenderClear(renderer);
+  SDL_RenderClear(Game::renderer);
   // Render stuff
-  SDL_RenderCopy(renderer, player, NULL, &destRectangle);
+  player->Render();
+  player2->Render();
 
-  SDL_RenderPresent(renderer);
+  SDL_RenderPresent(Game::renderer);
 };
 
 void Game::Clean() 
 {
   SDL_DestroyWindow(window);
-  SDL_DestroyRenderer(renderer);
+  SDL_DestroyRenderer(Game::renderer);
   SDL_Quit();
   std::cout << "Thanks for playing" << std::endl;
 };

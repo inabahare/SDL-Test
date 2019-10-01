@@ -18,11 +18,11 @@ class Game {
 
     bool IsRunning();
 
+    static SDL_Renderer* renderer;
   private:
     int counter = 0;
     bool isRunning;
     SDL_Window* window;
-    SDL_Renderer* renderer;
 };
 
 #endif
